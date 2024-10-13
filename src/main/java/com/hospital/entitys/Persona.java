@@ -1,10 +1,7 @@
 package com.hospital.entitys;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "personas")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 public class Persona {
 
@@ -27,8 +25,8 @@ public class Persona {
     @Column(name = "apellidos")
     private String apellido;
 
-    @ManyToOne //En este caso muchas "personas" a uno "ID"
+    @ManyToOne //En este caso muchas "personas" a un "ID"
     @JoinColumn(name = "fk_tipo_documento", referencedColumnName = "id") //Él se va a relacionar con la columna en comillas
-    private Tipo_documentos fk_tipo_documento; //Nombre de la variable en Java
+    private TipoDocumento fk_tipo_documento; //Nombre de la variable en Java
 
 }
