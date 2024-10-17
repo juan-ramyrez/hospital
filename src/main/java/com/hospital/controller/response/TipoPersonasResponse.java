@@ -8,9 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class TipoDocumentoResponse {
+public class TipoPersonasResponse {
 
     private Long id;
-    private String sigla;
+    private String titulo;
     private String descripcion;
 }

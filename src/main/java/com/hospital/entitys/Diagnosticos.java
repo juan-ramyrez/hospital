@@ -1,10 +1,7 @@
 package com.hospital.entitys;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 
@@ -14,6 +11,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 
 public class Diagnosticos {
 
@@ -27,7 +25,7 @@ public class Diagnosticos {
     private String descripcion_diagnostico;
 
     @Column(name = "fk_enfermedades")
-    private Integer fk_enfermedades;
+    private String enfermedades;
 
     @Column(name = "fecha_creacion")
     private Date fecha_creacion;

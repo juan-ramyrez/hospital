@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController //Permite que las apps usen la lógica de la app
-@RequestMapping(name= "person/v1") //Ruta base de los demás métodos. "v1" es la versión 1 de la API
+@RequestMapping("persona/v1") //Ruta base de los demás métodos. "v1" es la versión 1 de la API
 @RequiredArgsConstructor //Crear constructores pero en tiempo de ejecución
+
 public class PersonaRestController {
 
     private final PersonaService personaService;
@@ -24,25 +25,25 @@ public class PersonaRestController {
         return new ResponseEntity<>(personaList, HttpStatus.ACCEPTED);
     }
 
-    @DeleteMapping("/delete") //Trae la lista que se crea abajo
+    @DeleteMapping("/delete")
     public ResponseEntity<String> deletePersonsApi(@RequestParam(name = "id") Long id){
         personaService.deletePerson(id);
         return ResponseEntity.accepted().body("La acción solicitada se realizo");
     }
 
-    @GetMapping(name = "/search/{id}") //Trae la lista que se crea abajo
+    @GetMapping("/search/{id}")
     public ResponseEntity<PersonaResponse> searchPersonsApi(@PathVariable Long id){
         PersonaResponse personaResponse = personaService.searchPerson(id);
         return ResponseEntity.accepted().body(personaResponse);
     }
 
-    @PostMapping("/save") //Trae la lista que se crea abajo
+    @PostMapping("/save")
     public ResponseEntity<String> savePersonsApi(@RequestBody PersonaRequest personaRequest){//Enviara un objeto
         personaService.savePerson(personaRequest);
         return ResponseEntity.accepted().body("La acción solicitada se realizo");
     }
 
-    @PostMapping("/update") //Trae la lista que se crea abajo
+    @PostMapping("/update")
     public ResponseEntity<String> updatePersonsApi(@RequestBody PersonaRequest personaRequest){
         personaService.updatePerson(personaRequest);
         return ResponseEntity.accepted().body("La acción solicitada se realizo");

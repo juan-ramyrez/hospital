@@ -12,6 +12,6 @@ public interface PersonaRepository extends JpaRepository<Persona,Long> {
     @Query(value = "SELECT * FROM personas", nativeQuery = true) //Pasa el valor de la query de SQL
     List<Persona> listPersons();
 
-    @Query(value = "SELECT * FROM personas WHERE id=:id", nativeQuery = true) //Pasa el valor de la query de SQL
+    @Query(value = "SELECT * FROM personas WHERE id=:id", nativeQuery = true) //Pasa el valor de la query de SQL por el ID
     Persona searchPerson(@Param(value = "id") Long id);
 }

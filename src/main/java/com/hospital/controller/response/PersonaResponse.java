@@ -7,10 +7,12 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class PersonaResponse {
 
     private Long id;
     private String nombre;
     private String apellido;
     private TipoDocumentoResponse tipoDocumentoResponse; //FOREIGN KEY
+    private TipoPersonasResponse tipoPersonasResponse;
 }

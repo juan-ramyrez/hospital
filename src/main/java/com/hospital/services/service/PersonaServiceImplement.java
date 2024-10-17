@@ -3,8 +3,10 @@ package com.hospital.services.service;
 import com.hospital.controller.request.PersonaRequest;
 import com.hospital.controller.response.PersonaResponse;
 import com.hospital.controller.response.TipoDocumentoResponse;
+import com.hospital.controller.response.TipoPersonasResponse;
 import com.hospital.entitys.Persona;
 import com.hospital.entitys.TipoDocumento;
+import com.hospital.entitys.TipoPersonas;
 import com.hospital.entitys.repository.PersonaRepository;
 import com.hospital.services.PersonaService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.Optional;
 
 @Service //Validar que la app está bien creada. También se usa "@Component"
 @RequiredArgsConstructor
+
 public class PersonaServiceImplement implements PersonaService {
 
     private final PersonaRepository personaRepository;
@@ -35,7 +38,7 @@ public class PersonaServiceImplement implements PersonaService {
     public PersonaResponse searchPerson(Long id) {
         Persona persona = personaRepository.searchPerson(id);
         return Objects.nonNull(persona) ?
-                buildPersonReponse(persona) :
+                buildPersonResponse(persona) :
                 PersonaResponse.builder().build();
         //IF corto= "?" significa si da True. ":" significa que si da false
     }
@@ -44,12 +47,15 @@ public class PersonaServiceImplement implements PersonaService {
     public void savePerson(PersonaRequest personaRequest) {
         Persona persona = new Persona();
         TipoDocumento tipodocumento = new TipoDocumento();
+        TipoPersonas tipopersonas = new TipoPersonas();
 
         if(Objects.nonNull(personaRequest)){
             tipodocumento.setId(personaRequest.getFk_tipo_documento());
+            tipopersonas.setId(personaRequest.getFk_tipo_persona());
             persona.setApellido(personaRequest.getApellido());
             persona.setNombre(personaRequest.getNombre());
             persona.setFk_tipo_documento(tipodocumento);
+
             personaRepository.save(persona);
         }
     }
@@ -78,6 +84,7 @@ public class PersonaServiceImplement implements PersonaService {
                 .apellido(personaRequest.getApellido())
                 .nombre(personaRequest.getNombre())
                 .fk_tipo_documento(buildTipoDocumentoEntity(personaRequest))
+                .fk_tipo_persona(buildTipoPersonasEntity(personaRequest))
                 .build();
     }
 
@@ -87,12 +94,21 @@ public class PersonaServiceImplement implements PersonaService {
                 .build();
     }
 
-    private static PersonaResponse buildPersonReponse(Persona persona) {
+    private static TipoPersonas buildTipoPersonasEntity(PersonaRequest personaRequest) {
+        return TipoPersonas.builder()
+                .id(personaRequest.getFk_tipo_persona())
+                .build();
+    }
+
+    private static PersonaResponse buildPersonResponse(Persona persona) {
         return PersonaResponse.builder()
                 .id(persona.getId())
-                .nombre(persona.getApellido())
+                .nombre(persona.getNombre())
                 .apellido(persona.getApellido())
+
                 .tipoDocumentoResponse(buildTipoDocumentoResponse(persona.getFk_tipo_documento()))
+                .tipoPersonasResponse(buildTipoPersonasResponse(persona.getFk_tipo_persona()))
+
                 .build();
     }
 
@@ -101,6 +117,14 @@ public class PersonaServiceImplement implements PersonaService {
                 .id(tipoDocumento.getId())
                 .sigla(tipoDocumento.getSigla())
                 .descripcion(tipoDocumento.getDescripcion())
+                .build();
+    }
+
+    private static TipoPersonasResponse buildTipoPersonasResponse(TipoPersonas tipoPersonas){
+        return TipoPersonasResponse.builder()
+                .id(tipoPersonas.getId())
+                .titulo(tipoPersonas.getTitulo())
+                .descripcion(tipoPersonas.getDescripcion())
                 .build();
     }
 }

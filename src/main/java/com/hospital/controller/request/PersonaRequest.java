@@ -7,10 +7,13 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class PersonaRequest {
 
     private Long id;
     private String nombre;
     private String apellido;
     private Long fk_tipo_documento;
+    private Long fk_tipo_persona;
+
 }

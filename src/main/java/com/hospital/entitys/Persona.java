@@ -29,4 +29,7 @@ public class Persona {
     @JoinColumn(name = "fk_tipo_documento", referencedColumnName = "id") //Él se va a relacionar con la columna en comillas
     private TipoDocumento fk_tipo_documento; //Nombre de la variable en Java
 
+    @ManyToOne
+    @JoinColumn(name = "fk_tipo_persona", referencedColumnName = "id")
+    private TipoPersonas fk_tipo_persona;
 }
